@@ -21,15 +21,42 @@ class CurrenciesViewModel : ViewModel() {
         CurrenciesRepository(Apifactory.currenciesApisApi)
 
 
-    val response = MutableLiveData<String>()
+    private val rate = MutableLiveData<Float>()
+
+    val currencyOneAmount = MutableLiveData<String>()
+    val currencyTwoAmount = MutableLiveData<String>()
+    var currencyOne: String = ""
+    var currencyTwo: String = ""
 
     val currencies = MutableLiveData<MutableList<String>>()
 
-    fun getRate(pair: String) {
+    private fun getRate(pair: String) {
         scope.launch {
             val requestResponse = repository.getRate(pair)
-            response.postValue(requestResponse)
+            val rateString = requestResponse!!.split(":")[1].replace("}", "")
+            rate.postValue(rateString.toFloat())
+            setCurrencyOneAmount(currencyOneAmount.value!!)
         }
+    }
+
+    fun setCurrencyOneAmount(amount: String) {
+        currencyOneAmount.postValue(amount)
+        if(rate.value==null) return
+        val calc = amount.toFloat() * rate.value!!
+        currencyTwoAmount.postValue(String.format("%.2f", calc))
+    }
+
+    fun setCurrencyTwoAmount(amount: String) {
+        currencyTwoAmount.postValue(amount)
+        if(rate.value==null) return
+        val calc = amount.toFloat() / rate.value!!
+        currencyOneAmount.postValue(String.format("%.2f", calc))
+    }
+
+    fun setSymbols(symbol1: String, symbol2: String) {
+        currencyOne = symbol1
+        currencyTwo = symbol2
+        getRate(query())
     }
 
     fun getCurrencies() {
@@ -43,6 +70,9 @@ class CurrenciesViewModel : ViewModel() {
             currencies.postValue(curs)
         }
     }
+
+    private fun query(): String =
+        currencyOne+"_"+currencyTwo
 
 
     fun cancelAllRequests() = coroutineContext.cancel()
