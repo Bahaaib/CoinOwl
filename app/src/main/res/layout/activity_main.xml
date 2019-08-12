@@ -3,40 +3,100 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:background="@color/colorAccent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:focusableInTouchMode="true">
 
     <TextView
+            android:id="@+id/main_welcome1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Convert"
+            android:text="Get Started!"
             android:textSize="25sp"
-            android:textColor="#000"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-condensed-medium"/>
 
-    <ImageView
+    <TextView
+            android:id="@+id/main_welcome2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_more"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="20dp"/>
+            android:text="May the market be in your favor"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/main_welcome1"
+            android:fontFamily="sans-serif-light"/>
 
     <androidx.cardview.widget.CardView
-            android:layout_marginTop="110dp"
-            android:layout_centerHorizontal="true"
             android:id="@+id/main_first_card"
+            android:layout_below="@+id/main_welcome2"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="15dp"
             android:layout_marginEnd="35dp"
             android:layout_marginStart="35dp"
-            app:cardElevation="6dp">
+            app:cardElevation="6dp"
+            android:focusableInTouchMode="true">
+
+        <TextView
+                android:id="@+id/main_first_card_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$"
+                android:layout_gravity="bottom"
+                android:textColor="@color/colorAccent"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:layout_marginBottom="35dp"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginStart="30dp"/>
+
+        <EditText
+                android:id="@+id/main_first_card_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="100.00"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/colorAccent"
+                android:textSize="50sp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginStart="50dp"/>
+
+        <TextView
+                android:id="@+id/main_first_card_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="USD"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginStart="30dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/main_first_card_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:backgroundTint="@color/colorAccent"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -53,17 +113,67 @@
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="15dp"
             app:cardElevation="6dp">
+
+        <TextView
+                android:id="@+id/main_second_card_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="€"
+                android:textColor="@color/colorAccent"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="30dp"/>
+
+        <EditText
+                android:id="@+id/main_second_card_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="89.20"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="50sp"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="50dp"/>
+
+        <TextView
+                android:id="@+id/main_second_card_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="EUR"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginStart="30dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/main_second_card_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:backgroundTint="@color/colorAccent"/>
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
+            android:id="@+id/main_swapper_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="6dp"
             android:layout_marginEnd="50dp"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="278dp"
             android:layout_alignParentEnd="true">
 
         <ImageView
+                android:id="@+id/main_icon_holder"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/shape_circle"
@@ -71,6 +181,7 @@
                 android:elevation="6dp"/>
 
         <ImageView
+                android:id="@+id/main_swap_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/shape_circle"
@@ -79,6 +190,7 @@
                 android:layout_centerVertical="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_swap"
+                android:foreground="?attr/selectableItemBackground"
                 android:backgroundTint="@color/colorPrimary"
                 android:translationZ="10dp"/>
 

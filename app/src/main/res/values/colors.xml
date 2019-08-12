@@ -6,4 +6,5 @@
     <color name="colorAccent">#ffffff</color>
 
     <color name="colorGrayLight">#eeeeee</color>
+    <color name="colorBlack">#000000</color>
 </resources>
