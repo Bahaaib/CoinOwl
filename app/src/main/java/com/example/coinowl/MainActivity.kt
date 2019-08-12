@@ -15,7 +15,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 
 
 
-
+//@todo #2 Implement Menu Inflater method to the ImageView holding burger icon
 
 class MainActivity : AppCompatActivity() {
     private lateinit var currenciesViewModel: CurrenciesViewModel
