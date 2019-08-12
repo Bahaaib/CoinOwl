@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        currenciesViewModel = ViewModelProviders.of(this).get(CurrenciesViewModel::class.java)
+    /*    currenciesViewModel = ViewModelProviders.of(this).get(CurrenciesViewModel::class.java)
         currenciesViewModel.response.observe(this, Observer{
             textview.text = currenciesViewModel.response.value
         })
@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         submit.setOnClickListener {
             currenciesViewModel.getRate(query())
-        }
+        }*/
     }
 
-    fun query(): String = spinner1.selectedItem.toString()+"_"+spinner2.selectedItem.toString()
+    //fun query(): String = spinner1.selectedItem.toString()+"_"+spinner2.selectedItem.toString()
 }
