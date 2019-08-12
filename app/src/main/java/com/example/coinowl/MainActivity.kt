@@ -15,10 +15,10 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.widget.AppCompatSpinner
 
 
-// @todo #2 Un-comment old code to wire up with new UI
-// @todo #3 Remove @param testCurrencyList after wire up
-// @todo #4 Implement Card Swapping Animation
-// @todo #5 Add Chart View
+// @todo #3 Un-comment old code to wire up with new UI
+// @todo #4 Remove @param testCurrencyList after wire up
+// @todo #5 Implement Card Swapping Animation
+// @todo #6 Add Chart View
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
