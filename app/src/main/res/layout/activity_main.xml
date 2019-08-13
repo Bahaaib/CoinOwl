@@ -48,17 +48,17 @@
             android:focusableInTouchMode="true">
 
         <TextView
-                android:id="@+id/main_first_card_sign"
+                android:id="@+id/main_first_card_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$"
+                android:text="USD"
                 android:layout_gravity="bottom"
                 android:textColor="@color/colorAccent"
-                android:textSize="26sp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:layout_marginBottom="35dp"
                 android:fontFamily="sans-serif-light"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginStart="20dp"/>
 
         <EditText
                 android:id="@+id/main_first_card_amount"
@@ -66,27 +66,28 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:text="100.00"
+                android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/colorAccent"
                 android:textSize="50sp"
                 android:layout_marginBottom="15dp"
                 android:fontFamily="sans-serif-light"
-                android:layout_marginStart="50dp"/>
+                android:layout_marginStart="60dp"/>
 
         <TextView
-                android:id="@+id/main_first_card_currency"
+                android:id="@+id/main_first_card_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:text=""
+                android:text="+0.25%"
                 android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
+                android:textColor="@color/colorGreen"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-light"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginStart="20dp"/>
 
         <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/main_first_card_spinner"
@@ -115,42 +116,44 @@
             app:cardElevation="6dp">
 
         <TextView
-                android:id="@+id/main_second_card_sign"
+                android:id="@+id/main_second_card_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="€"
+                android:text="EUR"
                 android:textColor="@color/colorAccent"
-                android:textSize="26sp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:fontFamily="sans-serif-light"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="20dp"/>
 
         <EditText
                 android:id="@+id/main_second_card_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="89.20"
+                android:layout_marginEnd="20dp"
+                android:inputType="number"
                 android:gravity="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="50sp"
                 android:fontFamily="sans-serif-light"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="50dp"/>
+                android:layout_marginStart="60dp"/>
 
         <TextView
-                android:id="@+id/main_second_card_currency"
+                android:id="@+id/main_second_card_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text=""
+                android:text="- 0.16%"
                 android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp"
+                android:textColor="@color/colorRed"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="sans-serif-light"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginStart="20dp"/>
 
         <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/main_second_card_spinner"
