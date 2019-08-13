@@ -24,7 +24,8 @@ import java.util.*
 // @todo #7 Remove currency list first item "ALL"
 // @todo #8 Add spinners default selections (eg.: USD -> EUR)
 // @todo #9 Call yesterday currency rate value from API to calc up/down %ratio [formula : (today - yesterday)/100]
-// @todo #10 set Indicators TextViews colors according to %ratio
+// @todo #10 Set Indicators TextViews colors according to %ratio
+// @todo #11 Remove @param main_card_sign code implementation
 
 
 class MainActivity : AppCompatActivity(), OnItemSelectedListener {
