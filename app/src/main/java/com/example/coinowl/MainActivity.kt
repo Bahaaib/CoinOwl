@@ -21,8 +21,7 @@ import java.util.*
 
 // TODO: Implement Card Swapping Animation
 // TODO: Add Chart View
-// TODO: Remove currency list first item "ALL"
-// TODO: Add spinners default selections (eg.: USD -> EUR)
+// TODO: Add second spinner default selection different from the first one(eg.: USD -> EUR)
 // TODO: Call yesterday currency rate value from API to calc up/down %ratio [formula : (today - yesterday)/100]
 // TODO: Set @param main_first_card_indicator & @param main_second_card_indicator TextViews colors according to %ratio
 // TODO: Remove @param main_card_sign code implementation as it has been replaced below
