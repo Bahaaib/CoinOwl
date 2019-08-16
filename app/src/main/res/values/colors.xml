@@ -7,4 +7,6 @@
 
     <color name="colorGrayLight">#eeeeee</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGreen">#76ff03</color>
+    <color name="colorRed">#ff5131</color>
 </resources>
