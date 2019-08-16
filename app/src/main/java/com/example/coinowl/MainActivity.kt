@@ -19,13 +19,13 @@ import androidx.appcompat.widget.AppCompatSpinner
 import java.util.*
 
 
-// @todo #5 Implement Card Swapping Animation
-// @todo #6 Add Chart View
-// @todo #7 Remove currency list first item "ALL"
-// @todo #8 Add spinners default selections (eg.: USD -> EUR)
-// @todo #9 Call yesterday currency rate value from API to calc up/down %ratio [formula : (today - yesterday)/100]
-// @todo #10 Set Indicators TextViews colors according to %ratio
-// @todo #11 Remove @param main_card_sign code implementation
+// TODO: Implement Card Swapping Animation
+// TODO: Add Chart View
+// TODO: Remove currency list first item "ALL"
+// TODO: Add spinners default selections (eg.: USD -> EUR)
+// TODO: Call yesterday currency rate value from API to calc up/down %ratio [formula : (today - yesterday)/100]
+// TODO: Set @param main_first_card_indicator & @param main_second_card_indicator TextViews colors according to %ratio
+// TODO: Remove @param main_card_sign code implementation as it has been replaced below
 
 
 class MainActivity : AppCompatActivity(), OnItemSelectedListener {
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
     private lateinit var currenciesViewModel: CurrenciesViewModel
     private var firstSpinner: AppCompatSpinner? = null
     private var secondSpinner: AppCompatSpinner? = null
-    private var firstCurrency: String = ""
+    private var firstCurrency: String = "ِ"
     private var secondCurrency: String = ""
 
 
@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             secondSpinner?.adapter = spinnerAdapter
             firstSpinner?.adapter = spinnerAdapter
+            updateCurrencyLabel()
+            setCurrencyLabel()
         })
 
         currenciesViewModel.currencyOneAmount.observe(this, Observer {
@@ -63,6 +65,8 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
 
         secondSpinner = this.main_second_card_spinner
         secondSpinner!!.onItemSelectedListener = this
+
+
 
         main_first_card_amount.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -108,23 +112,21 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
         else curr2.getSymbol(resources.configuration.locale)
         //main_second_card_sign.text = str2
 
-        //
-        firstCurrency = firstSpinner?.selectedItem.toString()
-        if (!firstCurrency.equals("ALL")) {
-            main_first_card_currency.text = firstCurrency
-        } else {
-            main_first_card_currency.text = ""
-        }
-
-        secondCurrency = secondSpinner?.selectedItem.toString()
-        if (!secondCurrency.equals("ALL")) {
-            main_second_card_currency.text = secondCurrency
-
-        } else {
-            main_second_card_currency.text = ""
-
-        }
-
+        updateCurrencyLabel()
+        setCurrencyLabel()
 
     }
+
+    private fun updateCurrencyLabel() {
+        firstCurrency = firstSpinner?.selectedItem.toString()
+        secondCurrency = secondSpinner?.selectedItem.toString()
+
+    }
+
+    private fun setCurrencyLabel() {
+        main_first_card_currency.text = firstCurrency
+        main_second_card_currency.text = secondCurrency
+    }
+
+
 }
