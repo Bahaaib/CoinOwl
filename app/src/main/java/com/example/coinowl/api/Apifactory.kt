@@ -1,5 +1,6 @@
 package com.example.coinowl.api
 
+import android.util.Log
 import com.example.coinowl.Secrets
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -15,7 +16,7 @@ object Apifactory {
             .newBuilder()
             .addQueryParameter("apiKey", Secrets.apiKey)
             .build()
-
+        Log.d("MyTag", newUrl.toString())
         val newRequest = chain.request()
             .newBuilder()
             .url(newUrl)

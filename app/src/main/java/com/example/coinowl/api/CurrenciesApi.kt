@@ -9,9 +9,12 @@ interface CurrenciesApi {
     @GET("convert")
     fun getRate(
         @Query("q") pair: String,
+        @Query("date") startDate: String,
+        @Query("endDate") endDate: String,
         @Query("compact") compat: String="ultra"
     ): Deferred<Response<String>>
 
     @GET("currencies")
     fun getCurrencies(@Query("compact") compat: String="ultra"): Deferred<Response<String>>
+
 }

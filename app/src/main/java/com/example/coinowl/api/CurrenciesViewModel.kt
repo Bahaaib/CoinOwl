@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import org.json.JSONObject
-
+import java.lang.Exception
 
 
 class CurrenciesViewModel : ViewModel() {
@@ -22,6 +22,7 @@ class CurrenciesViewModel : ViewModel() {
 
 
     private val rate = MutableLiveData<Float>()
+    val rates = MutableLiveData<MutableList<Pair<String, Float>>>()
 
     val currencyOneAmount = MutableLiveData<String>()
     val currencyTwoAmount = MutableLiveData<String>()
@@ -32,11 +33,31 @@ class CurrenciesViewModel : ViewModel() {
 
     private fun getRate(pair: String) {
         scope.launch {
-            val requestResponse = repository.getRate(pair)
-            val rateString = requestResponse!!.split(":")[1].replace("}", "")
-            rate.postValue(rateString.toFloat())
-            setCurrencyOneAmount(currencyOneAmount.value!!)
+            try {
+                val requestResponse = repository.getRate(pair)
+                extractValues(requestResponse!!)
+            } catch (e: Exception) {
+                Log.d("MyTag", Log.getStackTraceString(e))
+            }
         }
+    }
+
+    private fun extractValues(got: String) {
+        var values = got
+            .substring(got.indexOf(":")+1, got.length)
+            .replace("{", "")
+            .replace("}", "")
+            .split(",")
+        var mRate = 0f
+        val mRates: MutableList<Pair<String, Float>> = mutableListOf()
+        values.forEach {
+            val pair = it.replace("\"", "").split(":")
+            mRate = pair[1].toFloat()
+            mRates.add(Pair(pair[0], mRate))
+        }
+        rate.postValue(mRate)
+        rates.postValue(mRates)
+        setCurrencyOneAmount(currencyOneAmount.value!!)
     }
 
     fun setCurrencyOneAmount(amount: String) {

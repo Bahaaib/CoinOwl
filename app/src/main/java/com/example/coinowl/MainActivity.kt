@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.Utils
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Implement Card Swapping Animation
@@ -44,14 +45,13 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
     private var firstCurrency: String = "ِ"
     private var secondCurrency: String = ""
     private lateinit var mChart: LineChart
-    private lateinit var values: ArrayList<Entry>
+    private var values: ArrayList<Entry> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupChartView()
-        addDummyEntries()
         setData()
         currenciesViewModel = ViewModelProviders.of(this).get(CurrenciesViewModel::class.java)
         currenciesViewModel.getCurrencies()
@@ -78,6 +78,16 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
 
         secondSpinner = this.main_second_card_spinner
         secondSpinner!!.onItemSelectedListener = this
+
+
+        currenciesViewModel.rates.observe(this, Observer {
+            values.clear()
+            it.forEachIndexed { index, pair ->
+                Log.d("MyTag", pair.toString())
+                values.add(Entry(index.toFloat(), pair.second))
+            }
+            setData()
+        })
 
 
 
@@ -149,78 +159,43 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
         mChart.setPinchZoom(true)
 
         //Remove Labels
-        mChart.getDescription().setText("")
-        mChart.getLegend().setEnabled(false)
+        mChart.description.text = ""
+        mChart.legend.isEnabled = false
 
         markerView.chartView = mChart
-        mChart.setMarker(markerView)
+        mChart.marker = markerView
 
         mChart.setDrawGridBackground(false)
 
         //Set Animation
         mChart.animateX(1000)
-        mChart.setDragEnabled(true)
+        mChart.isDragEnabled = true
         mChart.setScaleEnabled(true)
         mChart.setTouchEnabled(true)
 
-        mChart.setHighlightPerDragEnabled(true)
-        mChart.setHighlightPerTapEnabled(true)
+        mChart.isHighlightPerDragEnabled = true
+        mChart.isHighlightPerTapEnabled = true
 
         //Remove all Guidelines
-        mChart.getXAxis().setDrawGridLines(false)
-        mChart.getAxisLeft().setDrawGridLines(false)
-        mChart.getAxisRight().setDrawGridLines(false)
-        mChart.getAxisLeft().setDrawAxisLine(false)
-        mChart.getAxisLeft().setDrawLabels(false)
-        mChart.getAxisRight().setDrawAxisLine(false)
-        mChart.getAxisRight().setDrawLabels(false)
-        mChart.getXAxis().setDrawLabels(false)
-        mChart.getXAxis().setEnabled(false)
+        mChart.xAxis.setDrawGridLines(false)
+        mChart.axisLeft.setDrawGridLines(false)
+        mChart.axisRight.setDrawGridLines(false)
+        mChart.axisLeft.setDrawAxisLine(false)
+        mChart.axisLeft.setDrawLabels(false)
+        mChart.axisRight.setDrawAxisLine(false)
+        mChart.axisRight.setDrawLabels(false)
+        mChart.xAxis.setDrawLabels(false)
+        mChart.xAxis.isEnabled = false
 
     }
 
-    private fun addDummyEntries() {
-        values = ArrayList<Entry>()
-        values.add(Entry(1f, generateRandomValue().toFloat()))
-        values.add(Entry(2f, generateRandomValue().toFloat()))
-        values.add(Entry(3f, generateRandomValue().toFloat()))
-        values.add(Entry(4f, generateRandomValue().toFloat()))
-        values.add(Entry(5f, generateRandomValue().toFloat()))
-        values.add(Entry(6f, generateRandomValue().toFloat()))
-        values.add(Entry(7f, generateRandomValue().toFloat()))
-        values.add(Entry(8f, generateRandomValue().toFloat()))
-        values.add(Entry(9f, generateRandomValue().toFloat()))
-        values.add(Entry(10f, generateRandomValue().toFloat()))
-
-        values.add(Entry(11f, generateRandomValue().toFloat()))
-        values.add(Entry(12f, generateRandomValue().toFloat()))
-        values.add(Entry(13f, generateRandomValue().toFloat()))
-        values.add(Entry(14f, generateRandomValue().toFloat()))
-        values.add(Entry(15f, generateRandomValue().toFloat()))
-        values.add(Entry(16f, generateRandomValue().toFloat()))
-        values.add(Entry(17f, generateRandomValue().toFloat()))
-        values.add(Entry(18f, generateRandomValue().toFloat()))
-        values.add(Entry(19f, generateRandomValue().toFloat()))
-        values.add(Entry(20f, generateRandomValue().toFloat()))
-
-        values.add(Entry(21f, generateRandomValue().toFloat()))
-        values.add(Entry(22f, generateRandomValue().toFloat()))
-        values.add(Entry(23f, generateRandomValue().toFloat()))
-        values.add(Entry(24f, generateRandomValue().toFloat()))
-        values.add(Entry(25f, generateRandomValue().toFloat()))
-        values.add(Entry(26f, generateRandomValue().toFloat()))
-        values.add(Entry(27f, generateRandomValue().toFloat()))
-        values.add(Entry(28f, generateRandomValue().toFloat()))
-        values.add(Entry(29f, generateRandomValue().toFloat()))
-        values.add(Entry(30f, generateRandomValue().toFloat()))
-    }
 
     private fun setData() {
         val set1: LineDataSet
-        if (mChart.getData() != null && mChart.getData().getDataSetCount() > 0) {
-            set1 = mChart.getData().getDataSetByIndex(0) as LineDataSet
+        if (mChart.data != null && mChart.data.dataSetCount > 0) {
+            set1 = mChart.data.getDataSetByIndex(0) as LineDataSet
             set1.values = values
-            mChart.getData().notifyDataChanged()
+            mChart.data.notifyDataChanged()
             mChart.notifyDataSetChanged()
 
         } else {
@@ -244,8 +219,9 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             val dataSets = ArrayList<ILineDataSet>()
             dataSets.add(set1)
             val data = LineData(dataSets)
-            mChart.setData(data)
+            mChart.data = data
         }
+        mChart.invalidate()
     }
 
     private fun generateRandomValue(): Int {
