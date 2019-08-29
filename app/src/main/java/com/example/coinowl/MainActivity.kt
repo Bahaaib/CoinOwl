@@ -84,7 +84,9 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             values.clear()
             it.forEachIndexed { index, pair ->
                 Log.d("MyTag", pair.toString())
-                values.add(Entry(index.toFloat(), pair.second))
+                val s : String = String.format("%.2f", pair.second)
+                val value : Float = s.toFloat()
+                values.add(Entry(index.toFloat(), value))
             }
             setData()
         })
