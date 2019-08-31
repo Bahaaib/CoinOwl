@@ -35,11 +35,10 @@ import kotlin.collections.ArrayList
 
 
 // TODO: Implement Card Swapping Animation
-// TODO: Add Chart View
 // TODO: Add second spinner default selection different from the first one(eg.: USD -> EUR)
 // TODO: Call yesterday currency rate value from API to calc up/down %ratio [formula : (today - yesterday)/100]
 // TODO: Set @param main_first_card_indicator & @param main_second_card_indicator TextViews colors according to %ratio
-// TODO: Remove @param main_card_sign code implementation as it has been replaced below
+// TODO: Update values on currency change from each spinner
 
 
 class MainActivity : AppCompatActivity(), OnItemSelectedListener {
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-
+                Log.i("statuss", "I'm inside watcher 1")
                 if (s!!.isNotEmpty() && s.toString() != ".") {
                     Log.i("statuss", s.toString())
                     currenciesViewModel.setCurrencyOneAmount(s.toString())
@@ -149,6 +148,10 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             }
         }
 
+
+
+
+
     }
 
 
@@ -164,16 +167,14 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
         var str: String
         str = if (Build.VERSION.SDK_INT >= 24) curr.getSymbol(Locale.getDefault(Locale.Category.DISPLAY))
         else curr.getSymbol(resources.configuration.locale)
-        //main_first_card_currency.text = str
+
         val curr2 = Currency.getInstance(secondSpinner?.selectedItem.toString())
         var str2: String
         str2 = if (Build.VERSION.SDK_INT >= 24) curr2.getSymbol(Locale.getDefault(Locale.Category.DISPLAY))
         else curr2.getSymbol(resources.configuration.locale)
-        //main_second_card_sign.text = str2
 
         updateCurrencyLabel()
         setCurrencyLabel()
-
     }
 
     private fun updateCurrencyLabel() {
