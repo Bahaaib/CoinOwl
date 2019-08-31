@@ -61,14 +61,14 @@ class CurrenciesViewModel : ViewModel() {
     }
 
     fun setCurrencyOneAmount(amount: String) {
-        currencyOneAmount.postValue(amount)
+        //currencyOneAmount.postValue(amount)
         if(rate.value==null) return
         val calc = amount.toFloat() * rate.value!!
         currencyTwoAmount.postValue(String.format("%.2f", calc))
     }
 
     fun setCurrencyTwoAmount(amount: String) {
-        currencyTwoAmount.postValue(amount)
+       // currencyTwoAmount.postValue(amount)
         if(rate.value==null) return
         val calc = amount.toFloat() / rate.value!!
         currencyOneAmount.postValue(String.format("%.2f", calc))

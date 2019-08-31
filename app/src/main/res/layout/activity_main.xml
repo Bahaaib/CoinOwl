@@ -60,15 +60,15 @@
                 android:fontFamily="sans-serif-light"
                 android:layout_marginStart="20dp"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/main_first_card_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="100.00"
                 android:layout_marginEnd="20dp"
-                android:gravity="center"
-                android:inputType="number"
+                android:hint="100.0"
+                android:textColorHint="@color/colorAccent"
+                android:inputType="number|numberDecimal"
                 android:textColor="@color/colorAccent"
                 android:textSize="50sp"
                 android:layout_marginBottom="15dp"
@@ -127,14 +127,14 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginStart="20dp"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/main_second_card_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="89.20"
                 android:layout_marginEnd="20dp"
-                android:inputType="number"
-                android:gravity="center"
+                android:inputType="number|numberDecimal"
+                android:textColorHint="@color/colorAccent"
+                android:hint="100.0"
                 android:textColor="@color/colorAccent"
                 android:textSize="50sp"
                 android:fontFamily="sans-serif-light"

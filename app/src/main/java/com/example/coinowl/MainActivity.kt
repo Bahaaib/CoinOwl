@@ -1,21 +1,25 @@
 package com.example.coinowl
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.coinowl.api.CurrenciesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.EditText
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
 import com.example.coinowl.Utils.CurrencyMarkerView
@@ -25,6 +29,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.Utils
+import kotlinx.coroutines.Runnable
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -84,18 +89,15 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             values.clear()
             it.forEachIndexed { index, pair ->
                 Log.d("MyTag", pair.toString())
-                val s : String = String.format("%.2f", pair.second)
-                val value : Float = s.toFloat()
+                val s: String = String.format("%.2f", pair.second)
+                val value: Float = s.toFloat()
                 values.add(Entry(index.toFloat(), value))
             }
             setData()
         })
 
-
-
-        main_first_card_amount.addTextChangedListener(object : TextWatcher {
+        val watcherOne = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -103,12 +105,18 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                currenciesViewModel.setCurrencyOneAmount(s.toString())
-            }
-        })
-        currenciesViewModel.setCurrencyOneAmount("100")
 
-        main_second_card_amount.addTextChangedListener(object : TextWatcher {
+                if (s!!.isNotEmpty() && s.toString() != ".") {
+                    Log.i("statuss", s.toString())
+                    currenciesViewModel.setCurrencyOneAmount(s.toString())
+                } else {
+                    currenciesViewModel.setCurrencyOneAmount("100")
+                }
+
+
+            }
+        }
+        val watcherTwo = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -116,16 +124,42 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                currenciesViewModel.setCurrencyTwoAmount(s.toString())
+                Log.i("statuss", "I'm inside Watcher 2")
+                if (s!!.isNotEmpty() && s.toString() != ".") {
+                    currenciesViewModel.setCurrencyTwoAmount(s.toString())
+                } else {
+                    currenciesViewModel.setCurrencyTwoAmount("100")
+                }
             }
-        })
+        }
+
+        main_first_card_amount?.setOnFocusChangeListener { _, _ ->
+            if (main_first_card_amount.hasFocus()) {
+                main_second_card_amount.removeTextChangedListener(watcherTwo)
+                main_first_card_amount.addTextChangedListener(watcherOne)
+            }
+
+        }
+
+
+        main_second_card_amount?.setOnFocusChangeListener { _, _ ->
+            if (main_second_card_amount.hasFocus()) {
+                main_first_card_amount.removeTextChangedListener(watcherOne)
+                main_second_card_amount.addTextChangedListener(watcherTwo)
+            }
+        }
+
     }
+
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        currenciesViewModel.setSymbols(firstSpinner?.selectedItem.toString(), secondSpinner?.selectedItem.toString())
+        currenciesViewModel.setSymbols(
+            firstSpinner?.selectedItem.toString(),
+            secondSpinner?.selectedItem.toString()
+        )
         val curr = Currency.getInstance(firstSpinner?.selectedItem.toString())
         var str: String
         str = if (Build.VERSION.SDK_INT >= 24) curr.getSymbol(Locale.getDefault(Locale.Category.DISPLAY))
@@ -232,4 +266,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
 
+
 }
+
+
