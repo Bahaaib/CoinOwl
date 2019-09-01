@@ -39,6 +39,7 @@ import kotlin.collections.ArrayList
 // TODO: Call yesterday currency rate value from API to calc up/down %ratio [formula : (today - yesterday)/100]
 // TODO: Set @param main_first_card_indicator & @param main_second_card_indicator TextViews colors according to %ratio
 // TODO: Update values on currency change from each spinner
+// TODO: Replace Date/Time API to another that supports API level < 26
 
 
 class MainActivity : AppCompatActivity(), OnItemSelectedListener {
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
 
             override fun afterTextChanged(s: Editable?) {
                 Log.i("statuss", "I'm inside watcher 1")
-                if (s!!.isNotEmpty() && s.toString() != ".") {
+                if (s?.isNotEmpty() == true && s?.toString() != ".") {
                     Log.i("statuss", s.toString())
                     currenciesViewModel.setCurrencyOneAmount(s.toString())
                 } else {
@@ -124,7 +125,7 @@ class MainActivity : AppCompatActivity(), OnItemSelectedListener {
 
             override fun afterTextChanged(s: Editable?) {
                 Log.i("statuss", "I'm inside Watcher 2")
-                if (s!!.isNotEmpty() && s.toString() != ".") {
+                if (s?.isNotEmpty() == true && s?.toString() != ".") {
                     currenciesViewModel.setCurrencyTwoAmount(s.toString())
                 } else {
                     currenciesViewModel.setCurrencyTwoAmount("100")
